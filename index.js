@@ -41,6 +41,7 @@ let fileName = '/Users/florian/www/ImmoSelf/ad.json';
             transporter.sendMail(mailOptions);
         }
     }
+    let allAds = Array.from(new Set(newLinks.concat(oldLinks)));
 
-    fs.writeFileSync(fileName, JSON.stringify(newLinks.concat(oldLinks)));
+    fs.writeFileSync(fileName, JSON.stringify(allAds));
 })();
