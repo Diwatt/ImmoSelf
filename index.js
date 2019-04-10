@@ -34,7 +34,7 @@ let fileName = '/Users/florian/www/ImmoSelf/ad.json';
 
             const mailOptions = {
                 from: 'florian.roy@display-interactive.com', // sender address
-                to: 'florian.roy@gmail.com', // list of receivers
+                to: 'florian.roy@gmail.com, aurelia.leneillon@live.fr', // list of receivers
                 subject: 'Nouvelles annonces immobilières pour nous', // Subject line
                 html: newAds.join("<br/>\n")
             };
