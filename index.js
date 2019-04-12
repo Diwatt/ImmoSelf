@@ -1,11 +1,21 @@
 import LBCParser from './LBCParser.js';
 import fs from 'fs';
 import nodemailer from "nodemailer";
+import dns from 'dns';
 
 let lbcUrl = 'https://www.leboncoin.fr/recherche/?category=9&locations=Nantes&real_estate_type=1&price=min-325000&rooms=3-max&square=70-max';
 let fileName = '/Users/florian/www/ImmoSelf/ad.json';
 
 (async () => {
+
+    let hasInternet = false;
+    try {
+        await dns.promises.resolve('www.google.com');
+        hasInternet = true;
+    } catch (e) {}
+
+    if (!hasInternet) return;
+
     let newLinks = [];
     let lbc = new LBCParser(lbcUrl);
     newLinks = newLinks.concat(await lbc.getAdverts());
@@ -21,6 +31,10 @@ let fileName = '/Users/florian/www/ImmoSelf/ad.json';
             if (-1 === oldLinks.indexOf(link)) {
                 newAds.push(link);
             }
+        });
+
+        newAds = newAds.filter(function (el) {
+            return el != null;
         });
 
         if (oldLinks.length > 0 && newAds.length > 0) {
